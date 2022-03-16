@@ -17,8 +17,8 @@ public class ZadanieFacade {
         this.zadanieService = zadanieService;
     }
 
-    public void initializeConnection(String ip, int port) throws IOException {
-        zadanieService.initializeConnection(ip, port, getProperties());
+    public void initializeConnection() throws IOException {
+        zadanieService.initializeConnection(getProperties());
     }
 
     public void fetchData() throws IOException {

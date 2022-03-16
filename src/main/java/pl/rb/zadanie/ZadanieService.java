@@ -17,8 +17,8 @@ class ZadanieService implements IZadanieService {
     private final Map<String, Unifeed> unifeedMap = new ConcurrentHashMap<>();
 
     @Override
-    public void initializeConnection(String ip, int port, Properties appProps) throws IOException {
-        socket = new Socket(ip, port);
+    public void initializeConnection(Properties appProps) throws IOException {
+        socket = new Socket(appProps.getProperty("ip"), Integer.parseInt(appProps.getProperty("port")));
         out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         sendCredentials(appProps.getProperty("login"), appProps.getProperty("password"), appProps.getProperty("symbols"));
 
