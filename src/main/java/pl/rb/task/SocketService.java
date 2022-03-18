@@ -43,7 +43,7 @@ class SocketService implements ISocketService {
     }
 
     @Override
-    public Collection<Unifeed> getUnifeedMap() {
+    public Collection<Unifeed> getUnifeedCollection() {
         return unifeedMap.values();
     }
 

@@ -26,8 +26,8 @@ public class SocketFacade {
         socketService.fetchData();
     }
 
-    public Collection<Unifeed> getUnifeedMap() {
-        return socketService.getUnifeedMap();
+    public Collection<Unifeed> getUnifeedCollection() {
+        return socketService.getUnifeedCollection();
     }
 
 }

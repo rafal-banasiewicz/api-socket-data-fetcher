@@ -16,6 +16,6 @@ class SocketApplication {
 
     @GetMapping(value = "/getInstruments")
     public Collection<Unifeed> getInstruments() {
-        return socketFacade.getUnifeedMap();
+        return socketFacade.getUnifeedCollection();
     }
 }

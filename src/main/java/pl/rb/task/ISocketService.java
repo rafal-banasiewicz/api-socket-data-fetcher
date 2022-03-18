@@ -8,5 +8,5 @@ interface ISocketService {
 
     void fetchData() throws IOException;
 
-    Collection<Unifeed> getUnifeedMap();
+    Collection<Unifeed> getUnifeedCollection();
 }
