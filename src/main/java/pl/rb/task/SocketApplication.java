@@ -1,4 +1,4 @@
-package pl.rb.zadanie;
+package pl.rb.task;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -6,16 +6,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 @RestController
-class ZadanieController {
+class SocketApplication {
 
-    private final ZadanieFacade zadanieFacade;
+    private final SocketFacade socketFacade;
 
-    public ZadanieController(ZadanieFacade zadanieFacade) {
-        this.zadanieFacade = zadanieFacade;
+    public SocketApplication(SocketFacade socketFacade) {
+        this.socketFacade = socketFacade;
     }
 
     @GetMapping(value = "/getInstruments")
     public Collection<Unifeed> getInstruments() {
-        return zadanieFacade.getUnifeedMap();
+        return socketFacade.getUnifeedMap();
     }
 }

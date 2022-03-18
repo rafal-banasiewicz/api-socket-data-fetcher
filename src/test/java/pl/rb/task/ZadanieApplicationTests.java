@@ -1,4 +1,4 @@
-package pl.rb.zadanie;
+package pl.rb.task;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

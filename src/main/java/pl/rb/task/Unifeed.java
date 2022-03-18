@@ -1,4 +1,4 @@
-package pl.rb.zadanie;
+package pl.rb.task;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

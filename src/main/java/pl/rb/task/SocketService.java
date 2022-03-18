@@ -1,4 +1,4 @@
-package pl.rb.zadanie;
+package pl.rb.task;
 
 import org.springframework.stereotype.Service;
 
@@ -6,21 +6,23 @@ import java.io.*;
 import java.net.Socket;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
-class ZadanieService implements IZadanieService {
+class SocketService implements ISocketService {
 
     private static Socket socket;
     private static BufferedWriter out;
     private final Map<String, Unifeed> unifeedMap = new ConcurrentHashMap<>();
 
     @Override
-    public void initializeConnection(Properties appProps) throws IOException {
-        socket = new Socket(appProps.getProperty("ip"), Integer.parseInt(appProps.getProperty("port")));
+    public void initializeConnection(String ip, String port, String login, String password, String symbols) throws IOException {
+        socket = new Socket(ip, Integer.parseInt(port));
         out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        sendCredentials(appProps.getProperty("login"), appProps.getProperty("password"), appProps.getProperty("symbols"));
+        sendCredentials(login, password, symbols);
 
     }
 
@@ -29,12 +31,12 @@ class ZadanieService implements IZadanieService {
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         skipCredentials(in);
         while (true) {
-            List<String> a = getStringValues(in);
+            List<String> feeds = getStringValues(in);
             Unifeed unifeed = Unifeed.builder()
-                    .instrument(a.get(0))
-                    .bid(a.get(1))
-                    .ask(a.get(2))
-                    .time(a.get(3))
+                    .instrument(feeds.get(0))
+                    .bid(feeds.get(1))
+                    .ask(feeds.get(2))
+                    .time(getCurrentTime().toString())
                     .build();
             unifeedMap.put(unifeed.getInstrument(), unifeed);
         }
@@ -46,10 +48,8 @@ class ZadanieService implements IZadanieService {
     }
 
     private List<String> getStringValues(BufferedReader in) throws IOException {
-        String inString = in.readLine() + " " + getCurrentTime();
-        inString = inString.replace("  ", " ");
-        List<String> a = List.of(inString.split(" ", 4));
-        return a;
+        String inString = in.readLine().replaceAll(" +", " ");
+        return List.of(inString.split(" ", 3));
     }
 
     private LocalTime getCurrentTime() {
